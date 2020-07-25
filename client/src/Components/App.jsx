@@ -9,7 +9,7 @@ class App extends React.Component {
     this.state = {
       schedules: []
     }
-    this.getSchedule = this.getSchedule.bind(this);
+    this.postSchedule = this.postSchedule.bind(this);
     this.deleteScuedule = this.deleteSchedule.bind(this);
     this.updateScuedule = this.updateSchedule.bind(this);
   }
@@ -28,28 +28,56 @@ class App extends React.Component {
     });
   }
 
-  getSchedule(schedule) {
+  postSchedule(schedule) {
     console.log(schedule);
     const schedules = this.state.schedules;
     schedules.push(schedule);
     this.setState({ schedules: schedules },
       () => {
         $.ajax({
-          method: "GET",
-          url: "/api/schedules",
+          method: "POST",
+          url: "/api/0/schedules",
+          data: schedule,
           success: (data) => {
-            this.setState({ schedules: data[0].schedules });
+            $.ajax({
+              method: "GET",
+              url: "/api/0/schedules",
+              success: (data) => {
+                this.setState({ schedules: data[0].schedules });
+              },
+              error: (err) => {
+                console.log("err on get request: ", err);
+              }
+            });
           },
-          error: (err) => {
-            console.log("err on get request: ", err);
+          error: (data) => {
+            console.log("error on adding schedule");
           }
         });
       }
     );
   }
 
-  deleteSchedule(id) {
-    console.log(id);
+  deleteSchedule(scheduleid) {
+    $.ajax({
+      method: "DELETE",
+      url: "/api/0/schedules/" + scheduleid,
+      success: (data) => {
+        $.ajax({
+          method: "GET",
+          url: "/api/0/schedules",
+          success: (data) => {
+            this.setState({ schedules: data[0].schedules });
+          },
+          error: (err) => {
+            console.log("err on delete/get request: ", err);
+          }
+        });
+      },
+      error: (err) => {
+        console.log("err on delete request: ", err);
+      }
+    });
   }
 
   updateSchedule(id) {
@@ -57,13 +85,12 @@ class App extends React.Component {
   }
 
   render() {
-    console.log(this.state.schedules);
-    const { getSchedule, deleteSchedule, updateSchedule } = this;
+    const { postSchedule, deleteSchedule, updateSchedule } = this;
     const { schedules } = this.state;
 
     return (
       <div>
-        <div><ScheduleForm getSchedule={getSchedule} /></div>
+        <div><ScheduleForm postSchedule={postSchedule} /></div>
         <div><ScheduleList schedules={schedules} deleteSchedule={deleteSchedule} updateSchedule={updateSchedule} /></div>
       </div>
     );

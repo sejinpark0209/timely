@@ -11,7 +11,33 @@ function getSchedules(req, res) {
   });
 }
 
+function postSchedule(req, res) {
+  const userId = req.params.userid;
+  const { description, formatTimeStr, url } = req.body;
+  Models.postSchedule(userId, description, formatTimeStr, url, (err, data) => {
+    if(err) {
+      res.status(400).send(data);
+    } else  {
+      res.status(200).send(data);
+    }
+  });
+}
+
+function deleteSchedule(req, res) {
+  const userId = req.params.userid;
+  const scheduleId = req.params.scheduleid;
+  Models.deleteSchedule(userId, scheduleId, (err, data) => {
+    if(err) {
+      res.status(400).send(data);
+    } else  {
+      res.status(200).send(data);
+    }
+  });
+}
+
 
 module.exports = {
-  getSchedules
+  getSchedules,
+  postSchedule,
+  deleteSchedule
 }

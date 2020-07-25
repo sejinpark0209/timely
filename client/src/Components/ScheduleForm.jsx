@@ -29,8 +29,13 @@ class ScheduleForm extends React.Component {
   onSubmitHandler(e) {
     e.preventDefault();
     const { description, time, url } = this.state;
-    const newSchedule = { description, time, url }
-    this.props.getSchedule(newSchedule);
+    const timeArr = time.split('-');
+    const formatTime = new Date(timeArr[0], timeArr[1], timeArr[2], timeArr[3], timeArr[4], 0);
+    const formatTimeStr = formatTime.toString();
+
+    const newSchedule = { description, formatTimeStr, url }
+
+    this.props.postSchedule(newSchedule);
     this.setState({description: '', time: '', updateUrl: ''});
   }
 
@@ -43,7 +48,7 @@ class ScheduleForm extends React.Component {
               <input type="text" name="description" value={this.state.description} onChange={this.updateDescription} />
             </label>
             <label>
-              Time:
+              Time(YYYY-MM-DD-HH-MM):
               <input type="text" name="time" value={this.state.time} onChange={this.updateTime} />
             </label>
             <label>

@@ -17,7 +17,8 @@ class ScheduleItem extends React.Component {
 
   deleteClicked() {
     const { deleteSchedule, schedule } = this.props;
-    deleteSchedule(schedule.id);
+    console.log(schedule._id)
+    deleteSchedule(schedule._id);
   }
 
   render() {
