@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 const db = require('./index.js');
 
 const scheduleSchema = new mongoose.Schema({
-  time: String,
   description: String,
+  time: String,
   url: String
 });
 

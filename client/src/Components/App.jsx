@@ -9,23 +9,33 @@ class App extends React.Component {
       schedules: []
     }
     this.getSchedule = this.getSchedule.bind(this);
+    this.deleteScuedule = this.deleteSchedule.bind(this);
+    this.updateScuedule = this.updateSchedule.bind(this);
   }
 
   getSchedule(schedule) {
+    console.log(schedule);
     const schedules = this.state.schedules;
     schedules.push(schedule);
     this.setState({ schedules: schedules });
   }
 
+  deleteSchedule(id) {
+    console.log(id);
+  }
+
+  updateSchedule(id) {
+    console.log(id);
+  }
+
   render() {
-    // if(this.state.counter === 5) {
-    //   window.open("https://developer.mozilla.org/en-US/");
-    // }
+    const { getSchedule, deleteSchedule, updateSchedule } = this;
+    const { schedules } = this.state;
 
     return (
       <div>
-        <div><ScheduleForm getSchedule={this.getSchedule} /></div>
-        <div><ScheduleList schedules={this.state.schedules} /></div>
+        <div><ScheduleForm getSchedule={getSchedule} /></div>
+        <div><ScheduleList schedules={schedules} deleteSchedule={deleteSchedule} updateSchedule={updateSchedule} /></div>
       </div>
     );
   }
