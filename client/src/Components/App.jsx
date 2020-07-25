@@ -1,4 +1,5 @@
 import React from 'react';
+import jquery from 'jquery';
 import ScheduleForm from './ScheduleForm.jsx';
 import ScheduleList from './ScheduleList.jsx';
 
@@ -13,11 +14,37 @@ class App extends React.Component {
     this.updateScuedule = this.updateSchedule.bind(this);
   }
 
+  componentDidMount() {
+    $.ajax({
+      method: "GET",
+      url: "/api/schedules",
+      success: (data) => {
+        this.setState({ schedules: data });
+      },
+      error: (err) => {
+        console.log("err on get request: ", err);
+      }
+    });
+  }
+
   getSchedule(schedule) {
     console.log(schedule);
     const schedules = this.state.schedules;
     schedules.push(schedule);
-    this.setState({ schedules: schedules });
+    this.setState({ schedules: schedules },
+      () => {
+        $.ajax({
+          method: "GET",
+          url: "/api/schedules",
+          success: (data) => {
+            this.setState({ schedules: data });
+          },
+          error: (err) => {
+            console.log("err on get request: ", err);
+          }
+        });
+      }
+    );
   }
 
   deleteSchedule(id) {
