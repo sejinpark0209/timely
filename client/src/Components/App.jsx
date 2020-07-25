@@ -1,28 +1,31 @@
 import React from 'react';
+import ScheduleForm from './ScheduleForm.jsx';
+import ScheduleList from './ScheduleList.jsx';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      counter: 0
+      schedules: []
     }
-    this.increaseCounter = this.increaseCounter.bind(this);
+    this.getSchedule = this.getSchedule.bind(this);
   }
 
-  increaseCounter() {
-    const count = this.state.counter += 1;
-    this.setState({ counter: count });
+  getSchedule(schedule) {
+    const schedules = this.state.schedules;
+    schedules.push(schedule);
+    this.setState({ schedules: schedules });
   }
 
   render() {
-    console.log('count:', this.state.counter);
-    if(this.state.counter === 5) {
-      window.open("https://developer.mozilla.org/en-US/");
-    }
+    // if(this.state.counter === 5) {
+    //   window.open("https://developer.mozilla.org/en-US/");
+    // }
 
     return (
       <div>
-        <button onClick={this.increaseCounter} >click</button>
+        <div><ScheduleForm getSchedule={this.getSchedule} /></div>
+        <div><ScheduleList schedules={this.state.schedules} /></div>
       </div>
     );
   }
