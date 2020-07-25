@@ -1,5 +1,5 @@
 import React from 'react';
-import jquery from 'jquery';
+import $ from 'jquery';
 import ScheduleForm from './ScheduleForm.jsx';
 import ScheduleList from './ScheduleList.jsx';
 
@@ -17,9 +17,10 @@ class App extends React.Component {
   componentDidMount() {
     $.ajax({
       method: "GET",
-      url: "/api/schedules",
+      url: "/api/0/schedules",
       success: (data) => {
-        this.setState({ schedules: data });
+        console.log(data);
+        this.setState({ schedules: data[0].schedules });
       },
       error: (err) => {
         console.log("err on get request: ", err);
@@ -37,7 +38,7 @@ class App extends React.Component {
           method: "GET",
           url: "/api/schedules",
           success: (data) => {
-            this.setState({ schedules: data });
+            this.setState({ schedules: data[0].schedules });
           },
           error: (err) => {
             console.log("err on get request: ", err);
@@ -56,6 +57,7 @@ class App extends React.Component {
   }
 
   render() {
+    console.log(this.state.schedules);
     const { getSchedule, deleteSchedule, updateSchedule } = this;
     const { schedules } = this.state;
 

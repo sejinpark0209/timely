@@ -1,7 +1,8 @@
 const Models = require('./Models.js');
 
 function getSchedules(req, res) {
-  Models.getSchedules((err, data) => {
+  const userId = req.params.userid;
+  Models.getSchedules(userId, (err, data) => {
     if(err) {
       res.status(400).send(data);
     } else  {

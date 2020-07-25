@@ -1,7 +1,8 @@
 const Schedule = require('../database/Schedule.js')
 
-function getSchedules(callback) {
-  Schedule.find({}, callback);
+function getSchedules(userId, callback) {
+  const id = parseInt(userId);
+  Schedule.find({ user_id: id }, callback);
 }
 
 module.exports = {

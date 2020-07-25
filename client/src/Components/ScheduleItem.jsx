@@ -27,6 +27,7 @@ class ScheduleItem extends React.Component {
     } else {
       null;
     }
+    console.log(this.props.schedule)
 
     return (
       <div>

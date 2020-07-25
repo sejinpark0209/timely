@@ -9,7 +9,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static('client/dist'));
 
 
-app.get('/api/schedules', (req, res) => {
+app.get('/api/:userid/schedules', (req, res) => {
   Controllers.getSchedules(req, res);
 });
 
