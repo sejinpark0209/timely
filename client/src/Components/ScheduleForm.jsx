@@ -38,9 +38,18 @@ class ScheduleForm extends React.Component {
     return (
       <div>
         <form onSubmit={this.onSubmitHandler}>
-            <input type="text" name="description" value={this.state.description} onChange={this.updateDescription} />
-            <input type="text" name="time" value={this.state.time} onChange={this.updateTime} />
-            <input type="text" name="link" value={this.state.url} onChange={this.updateUrl} />
+            <label>
+              Description:
+              <input type="text" name="description" value={this.state.description} onChange={this.updateDescription} />
+            </label>
+            <label>
+              Time:
+              <input type="text" name="time" value={this.state.time} onChange={this.updateTime} />
+            </label>
+            <label>
+              Link:
+              <input type="text" name="link" value={this.state.url} onChange={this.updateUrl} />
+            </label>
           <input type="submit" value="Add" />
         </form>
       </div>

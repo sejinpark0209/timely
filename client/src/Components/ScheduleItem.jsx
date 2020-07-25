@@ -30,7 +30,12 @@ class ScheduleItem extends React.Component {
 
     return (
       <div>
-        {this.props.schedule.description}{" "}{this.props.schedule.time}{" "}{this.props.schedule.url}
+        Description: {this.props.schedule.description}
+        <br/>
+        Time: {this.props.schedule.time}
+        <br/>
+        Link: {this.props.schedule.url}
+        <br/>
         {editForm}
         <button onClick={this.onEditClicked}>Edit</button>
         <button onClick={this.deleteClicked}>Delete</button>
