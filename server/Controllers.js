@@ -23,6 +23,19 @@ function postSchedule(req, res) {
   });
 }
 
+function putSchedules(req, res) {
+  const userId = req.params.userid;
+  console.log(req.body)
+  const updatedSchedules = req.body;
+  Models.putSchedules(userId, updatedSchedules, (err, data) => {
+    if(err) {
+      res.status(400).send(data);
+    } else  {
+      res.status(200).send(data);
+    }
+  });
+}
+
 function deleteSchedule(req, res) {
   const userId = req.params.userid;
   const scheduleId = req.params.scheduleid;
@@ -39,5 +52,6 @@ function deleteSchedule(req, res) {
 module.exports = {
   getSchedules,
   postSchedule,
-  deleteSchedule
+  deleteSchedule,
+  putSchedules
 }

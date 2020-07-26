@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 
 class ScheduleForm extends React.Component {
   constructor(props) {
@@ -30,13 +31,14 @@ class ScheduleForm extends React.Component {
     e.preventDefault();
     const { description, time, url } = this.state;
     const timeArr = time.split('-');
-    const formatTime = new Date(timeArr[0], timeArr[1], timeArr[2], timeArr[3], timeArr[4], 0);
+    const formatTime = moment(new Date(timeArr[0], timeArr[1] - 1, timeArr[2], timeArr[3], timeArr[4], 0)).format('lll');
+
     const formatTimeStr = formatTime.toString();
 
     const newSchedule = { description, formatTimeStr, url }
 
     this.props.postSchedule(newSchedule);
-    this.setState({description: '', time: '', updateUrl: ''});
+    // this.setState({description: '', time: '', updateUrl: ''});
   }
 
   render() {
