@@ -6,18 +6,44 @@ function getSchedules(userId, callback) {
   Schedule.find({ user_id: id }, callback).sort();
 }
 
+// function putSchedules(userId, updatedSchedules, callback) {
+//   console.log('putschedule!!!')
+//   console.log(userId);
+//   console.log(updatedSchedules)
+//   const id = parseInt(userId);
+//   Schedule.update({ user_id: id },
+ //   {
+//       $set: {
+//         schedules: updatedSchedules,
+//       },
+//     }, callback);
+// }
+
 function putSchedules(userId, updatedSchedules, callback) {
   console.log('putschedule!!!')
   console.log(userId);
   console.log(updatedSchedules)
   const id = parseInt(userId);
-  Schedule.update({ user_id: id },
-    {
-      $set: {
-        schedules: updatedSchedules,
-      },
-    }, callback);
+  // Schedule.update({ user_id: id },
+  //   {
+  //     $set: {
+  //       schedules: updatedSchedules,
+  //     },
+  //   }, callback);
 }
+
+// function postSchedule(userId, updatedSchedules, callback) {
+//   console.log('putschedule!!!')
+//   console.log(userId);
+//   console.log(updatedSchedules)
+//   const id = parseInt(userId);
+//   Schedule.update({ user_id: id },
+//     {
+//       $set: {
+//         schedules: updatedSchedules,
+//       },
+//     }, callback);
+// }
 
 function postSchedule(userId, description, time, url, callback) {
   const id = parseInt(userId);

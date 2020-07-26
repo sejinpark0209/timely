@@ -50,6 +50,7 @@ class ScheduleForm extends React.Component {
               <input type="text" name="description" value={this.state.description} onChange={this.updateDescription} />
             </label>
             <label>
+              // put logic of cannot put past time
               Time(YYYY-MM-DD-HH-MM):
               <input type="text" name="time" value={this.state.time} onChange={this.updateTime} />
             </label>

@@ -1,6 +1,7 @@
 import React from 'react';
 import $ from 'jquery';
 import moment from 'moment';
+import "@babel/polyfill";
 import ScheduleForm from './ScheduleForm.jsx';
 import ScheduleList from './ScheduleList.jsx';
 
@@ -9,7 +10,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       schedules: [],
-      scheduleIntervals: []
+      scheduledIntervals: []
     }
     this.postSchedule = this.postSchedule.bind(this);
     this.deleteSchedule = this.deleteSchedule.bind(this);
@@ -19,37 +20,50 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+    const temp = [];
+    for(let i = 0; i < 3; i+= 1) {
+      temp.push(i)
+    }
+    console.log(temp)
     $.ajax({
       method: "GET",
       url: "/api/0/schedules",
       success: (data) => {
-        console.log(data);
-        const scheduleIntervals = [];
-        const updatedSchedules = [];
+
+        const futureIntervals = [];
         const sortedByTime = data[0].schedules.sort((a,b) => new moment(a.time) - new moment(b.time));
-        console.log("sorted Arr, ", sortedByTime);
-        for(let i = 0; i < sortedByTime.length; i+= 1) {
-          console.log('what?????')
+        console.log(sortedByTime)
+
+        for(let i = 0; i < sortedByTime.length; i += 1) {
           const diffms = moment(sortedByTime[i].time).diff(moment());
-          console.log('diffms: ', diffms)
-          // update schedules only scheduled for future
+          console.log(diffms)
           if(diffms > 0) {
-            console.log('if statement diff')
-            console.log(sortedByTime[i])
-            updatedSchedules.push(sortedByTime[i]);
-            scheduleIntervals.push(diffms);
+            console.log(i)
+            futureIntervals.push(sortedByTime[i]);
           }
         }
-        console.log("line 40: ", updatedSchedules)
-        console.log("line 40: ", scheduleIntervals)
-        this.setState({ schedules: updatedSchedules, scheduleIntervals: scheduleIntervals }, () => {
+        console.log(futureIntervals)
+        //something wrong
+        // for(var i = 0; i < sortedByTime.length; i+= 1) {
+        //   const diffms = moment(sortedByTime[i].time).diff(moment());
+        //   // update schedules only scheduled for future
+        //   console.log(typeof diffms)
+        //   if(diffms > 0) {
+        //     console.log("sbti: ", sortedByTime[i]);
+        //     updatedSchedules.push(1);
+        //     console.log(i + " " + updatedSchedules)
+        //     intervals.push(diffms);
+        //   }
+        // }
+
+        this.setState({ schedules: futureIntervals }, () => {
           console.log('line 45')
-          if(this.state.schedules.length > 0) {
-            this.runTimeInterval();
-          }
-          console.log('just before update schedule')
-          // why updateSchedule not work?
-          this.updateSchedule();
+          console.log(this.state.schedules)
+          // if(sortedByTime.length > 0) {
+          //   console.log('starting run time interval')
+
+          //   this.runTimeInterval();
+          // }
         });
       },
       error: (err) => {
@@ -59,21 +73,36 @@ class App extends React.Component {
   }
 
   runTimeInterval() {
-    console.log('hi')
-    const { scheduleIntervals, schedules } = this.state;
-    const firstInterval = scheduleIntervals.shift();
+    const calcIntervals = [];
+    const { schedules, scheduledIntervals } = this.state;
+    for(let i = 0; i < schedules.length; i += 1) {
+      const diffms = moment(schedules[i].time).diff(moment());
+      calcIntervals.push(diffms);
+    }
+    const firstInterval = calcIntervals.shift();
     const shiftedSchedule = schedules;
-    shiftedSchedule.shift();
-
-    setTimeout(function() {
-      window.open("https://www.google.com");
-      this.setState({ scheduleIntervals: scheduleIntervals, schedules: shiftedSchedule });
-      if(timeIntervals.length > 0) {
-        this.runTimeInterval();
-      } else {
-        return;
-      }
-    }, firstInterval);
+    const shiftedElement = shiftedSchedule.shift();
+      setTimeout(() => {
+        window.open("https://www.google.com");
+        this.setState({ scheduledIntervals: calcIntervals, schedules: shiftedSchedule }, () => {
+          $.ajax({
+            method: "PUT",
+            url: "/api/0/schedules",
+            data: shiftedSchedule,
+            success: (data) => {
+              console.log("success timeout update")
+            },
+            error: (data) => {
+              console.log("error on adding schedule");
+            }
+          });
+        });
+        if(calcIntervals.length > 0) {
+          this.runTimeInterval();
+        } else {
+          return;
+        }
+      }, firstInterval);
   }
 
   updateSchedule() {
@@ -91,9 +120,12 @@ class App extends React.Component {
   }
 
   postSchedule(schedule) {
-    console.log(schedule);
+    console.log('post schedule state: ', this.state.schedules);
+    console.log(Array.isArray(this.state.schedules));
     const schedules = this.state.schedules;
     schedules.push(schedule);
+    console.log('post schedules status: ', schedules)
+    console.log('post updated schedules: ', this.state.schedules);
     this.setState({ schedules: schedules },
       () => {
         $.ajax({
