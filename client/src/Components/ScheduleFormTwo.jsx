@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 
-class ScheduleFormNoCal extends React.Component {
+class ScheduleFormTwo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -14,6 +14,8 @@ class ScheduleFormNoCal extends React.Component {
     this.updateDate = this.updateDate.bind(this);
     this.updateTime = this.updateTime.bind(this);
     this.updateUrl = this.updateUrl.bind(this);
+    this.updateEarlymin = this.updateEarlymin.bind(this);
+    this.updateEarlysec = this.updateEarlysec.bind(this);
     this.onSubmitHandler = this.onSubmitHandler.bind(this);
   }
 
@@ -31,6 +33,14 @@ class ScheduleFormNoCal extends React.Component {
 
   updateUrl(e) {
     this.setState({ url: e.target.value });
+  }
+
+  updateEarlymin() {
+
+  }
+
+  updateEarlysec() {
+
   }
 
   onSubmitHandler(e) {
@@ -72,6 +82,13 @@ class ScheduleFormNoCal extends React.Component {
               Link:
               <input type="text" name="link" value={this.state.url} onChange={this.updateUrl} />
             </label>
+            <label>
+              join earlier:
+              <input type="number" name="earlymin" step="1" min="1" max="60" value={this.state.earlymin} onInput={this.updateEarlymin} />
+              min
+              <input type="number" name="earlysec" step="1" min="1" max="10"value={this.state.earlysec} onChange={this.updateEarlysec} />
+              sec
+            </label>
           <input type="submit" value="Add" />
         </form>
       </div>
@@ -80,4 +97,4 @@ class ScheduleFormNoCal extends React.Component {
 }
 
 
-export default ScheduleFormNoCal;
+export default ScheduleFormTwo;

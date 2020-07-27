@@ -3,7 +3,7 @@ import $ from 'jquery';
 import moment from 'moment';
 import ScheduleForm from './ScheduleForm.jsx';
 import ScheduleList from './ScheduleList.jsx';
-import ScheduleFormNoCal from './ScheduleFormNoCal.jsx';
+import ScheduleFormTwo from './ScheduleFormTwo.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -141,7 +141,7 @@ class App extends React.Component {
     if(view === 'option2') {
       form = <ScheduleForm postSchedule={postSchedule} />;
     } else {
-      form = <ScheduleFormNoCal postSchedule={postSchedule} />;
+      form = <ScheduleFormTwo postSchedule={postSchedule} />;
     }
 
     return (
