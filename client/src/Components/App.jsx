@@ -4,17 +4,20 @@ import moment from 'moment';
 import "@babel/polyfill";
 import ScheduleForm from './ScheduleForm.jsx';
 import ScheduleList from './ScheduleList.jsx';
+import ScheduleFormNoCal from './ScheduleFormNoCal.jsx';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       schedules: [],
-      scheduledIntervals: []
+      scheduledIntervals: [],
+      view: 'option1'
     }
     this.postSchedule = this.postSchedule.bind(this);
     this.deleteSchedule = this.deleteSchedule.bind(this);
     this.deleteSchedule = this.deleteSchedule.bind(this);
+    this.changeView = this.changeView.bind(this);
   }
 
   componentDidMount() {
@@ -70,7 +73,6 @@ class App extends React.Component {
   postSchedule(schedule) {
     const schedules = this.state.schedules;
     schedules.push(schedule);
-
 
     this.setState({ schedules: schedules },
       () => {
@@ -132,14 +134,29 @@ class App extends React.Component {
     });
   }
 
+  changeView() {
+    if(this.state.view === 'option1') {
+      this.setState({ view: 'option2' });
+    } else {
+      this.setState({ view: 'option1'});
+    }
+  }
+
   render() {
     const { postSchedule, deleteSchedule, updateSchedule } = this;
-    const { schedules } = this.state;
+    const { schedules, view } = this.state;
+
+    let form;
+    if(view === 'option2') {
+      form = <ScheduleForm postSchedule={postSchedule} />;
+    } else {
+      form = <ScheduleFormNoCal postSchedule={postSchedule} />;
+    }
 
     return (
       <div>
-        <button>change view</button>
-        <div><ScheduleForm postSchedule={postSchedule} /></div>
+        <button onClick={this.changeView} >change view</button>
+        <div>{form}</div>
         <div><ScheduleList schedules={schedules} deleteSchedule={deleteSchedule} updateSchedule={updateSchedule} /></div>
       </div>
     );

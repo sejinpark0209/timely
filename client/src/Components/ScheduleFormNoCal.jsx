@@ -7,9 +7,11 @@ class ScheduleFormNoCal extends React.Component {
     this.state = {
       description: '',
       time: '',
+      date: '',
       url: '',
     }
     this.updateDescription= this.updateDescription.bind(this);
+    this.updateDate = this.updateDate.bind(this);
     this.updateTime = this.updateTime.bind(this);
     this.updateUrl = this.updateUrl.bind(this);
     this.onSubmitHandler = this.onSubmitHandler.bind(this);
@@ -17,6 +19,10 @@ class ScheduleFormNoCal extends React.Component {
 
   updateDescription(e) {
     this.setState({ description: e.target.value });
+  }
+
+  updateDate(e) {
+    this.setState({ date: e.target.value });
   }
 
   updateTime(e) {
@@ -29,16 +35,23 @@ class ScheduleFormNoCal extends React.Component {
 
   onSubmitHandler(e) {
     e.preventDefault();
-    const { description, time, url } = this.state;
-    const timeArr = time.split('-');
-    const formatTime = moment(new Date(timeArr[0], timeArr[1] - 1, timeArr[2], timeArr[3], timeArr[4], 0)).format('lll');
+    const { description, time, date, url } = this.state;
+
+    const dateFormat = date.toString().split('-');
+    const timeFormat = time.toString().split(':');
+
+    const yy = Number(dateFormat[0]);
+    const mm = Number(dateFormat[1]) - 1;
+    const dd = Number(dateFormat[2]);
+    const hh = Number(timeFormat[0]);
+    const min = Number(timeFormat[1]);
+    const formatTime = moment(new Date(yy, mm, dd, hh, min, 0)).format('lll');
 
     const formatTimeStr = formatTime.toString();
-
     const newSchedule = { description, formatTimeStr, url }
 
     this.props.postSchedule(newSchedule);
-    // this.setState({description: '', time: '', updateUrl: ''});
+    this.setState({description: '', updateUrl: ''});
   }
 
   render() {
@@ -50,8 +63,10 @@ class ScheduleFormNoCal extends React.Component {
               <input type="text" name="description" value={this.state.description} onChange={this.updateDescription} />
             </label>
             <label>
-              Time(YYYY-MM-DD-HH-MM):
-              <input type="text" name="time" value={this.state.time} onChange={this.updateTime} />
+              <input type="date" name="date" value={this.state.date} onChange={this.updateDate} />
+            </label>
+            <label>
+              <input type="time" name="time" value={this.state.time} onChange={this.updateTime} />
             </label>
             <label>
               Link:

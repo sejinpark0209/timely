@@ -7,10 +7,8 @@ class ScheduleForm extends React.Component {
     super(props);
     this.state = {
       description: '',
-      time: '',
       url: '',
-      date: new Date(),
-      view: 'calendar'
+      date: new Date()
     }
     this.updateDescription= this.updateDescription.bind(this);
     this.updateTime = this.updateTime.bind(this);
@@ -35,37 +33,28 @@ class ScheduleForm extends React.Component {
     this.setState({ date });
   }
 
-  // onChange(e) {
-  //   this.setState({ date: e.target.value })
-  // }
-
   onSubmitHandler(e) {
     e.preventDefault();
-    const { description, time, url } = this.state;
-    const timeArr = time.split('-');
-    const formatTime = moment(new Date(timeArr[0], timeArr[1] - 1, timeArr[2], timeArr[3], timeArr[4], 0)).format('lll');
+    const { description, date, url } = this.state;
+    const formatTime = moment(date).format('lll');
 
     const formatTimeStr = formatTime.toString();
 
     const newSchedule = { description, formatTimeStr, url }
 
     this.props.postSchedule(newSchedule);
-    // this.setState({description: '', time: '', updateUrl: ''});
+    this.setState({description: '', url: ''});
   }
 
   render() {
     return (
       <div>
-        <DateTimePicker onChange={this.updateDatePickerChange} value={this.state.date} />
         <form onSubmit={this.onSubmitHandler}>
             <label>
               Description:
               <input type="text" name="description" value={this.state.description} onChange={this.updateDescription} />
             </label>
-            <label>
-              Time(YYYY-MM-DD-HH-MM):
-              <input type="text" name="time" value={this.state.time} onChange={this.updateTime} />
-            </label>
+            <DateTimePicker onChange={this.updateDatePickerChange} value={this.state.date} />
             <label>
               Link:
               <input type="text" name="link" value={this.state.url} onChange={this.updateUrl} />
