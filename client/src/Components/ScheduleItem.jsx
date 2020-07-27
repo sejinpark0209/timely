@@ -19,7 +19,6 @@ class ScheduleItem extends React.Component {
 
   deleteClicked() {
     const { deleteSchedule, schedule } = this.props;
-    console.log(schedule._id)
     deleteSchedule(schedule._id);
   }
 
@@ -41,10 +40,10 @@ class ScheduleItem extends React.Component {
       null;
     }
     const diffms = moment(this.props.schedule.time).diff(moment());
-    console.log('first diffms: ', diffms);
     if(diffms > 0) {
       this.setExtendedTimeout(() => {
-        window.open("https://www.google.com");
+        window.open(this.props.schedule.url);
+        this.props.deleteSchedule(this.props.schedule._id);
       }, diffms);
     }
 

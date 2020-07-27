@@ -119,10 +119,6 @@ class App extends React.Component {
           method: "GET",
           url: "/api/0/schedules",
           success: (data) => {
-            console.log('this is delete get req')
-            console.log(data[0].schedules);
-            // why undefined?
-            console.log(this.state.schedules);
             this.setState({ schedules: data[0].schedules });
           },
           error: (err) => {
@@ -135,10 +131,6 @@ class App extends React.Component {
       }
     });
   }
-
-  // updateSchedule(id) {
-  //   console.log(id);
-  // }
 
   render() {
     const { postSchedule, deleteSchedule, updateSchedule } = this;
