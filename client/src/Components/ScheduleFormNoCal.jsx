@@ -1,22 +1,18 @@
 import React from 'react';
 import moment from 'moment';
-import DateTimePicker from 'react-datetime-picker'
 
-class ScheduleForm extends React.Component {
+class ScheduleFormNoCal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       description: '',
       time: '',
       url: '',
-      date: new Date(),
-      view: 'calendar'
     }
     this.updateDescription= this.updateDescription.bind(this);
     this.updateTime = this.updateTime.bind(this);
     this.updateUrl = this.updateUrl.bind(this);
     this.onSubmitHandler = this.onSubmitHandler.bind(this);
-    this.updateDatePickerChange = this.updateDatePickerChange.bind(this);
   }
 
   updateDescription(e) {
@@ -30,14 +26,6 @@ class ScheduleForm extends React.Component {
   updateUrl(e) {
     this.setState({ url: e.target.value });
   }
-
-  updateDatePickerChange(date) {
-    this.setState({ date });
-  }
-
-  // onChange(e) {
-  //   this.setState({ date: e.target.value })
-  // }
 
   onSubmitHandler(e) {
     e.preventDefault();
@@ -56,7 +44,6 @@ class ScheduleForm extends React.Component {
   render() {
     return (
       <div>
-        <DateTimePicker onChange={this.updateDatePickerChange} value={this.state.date} />
         <form onSubmit={this.onSubmitHandler}>
             <label>
               Description:
@@ -78,4 +65,4 @@ class ScheduleForm extends React.Component {
 }
 
 
-export default ScheduleForm;
+export default ScheduleFormNoCal;

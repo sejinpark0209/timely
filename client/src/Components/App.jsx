@@ -138,6 +138,7 @@ class App extends React.Component {
 
     return (
       <div>
+        <button>change view</button>
         <div><ScheduleForm postSchedule={postSchedule} /></div>
         <div><ScheduleList schedules={schedules} deleteSchedule={deleteSchedule} updateSchedule={updateSchedule} /></div>
       </div>
