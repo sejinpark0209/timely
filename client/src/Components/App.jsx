@@ -21,9 +21,8 @@ class App extends React.Component {
 
   componentDidMount() {
     const browserUrl = window.location.href.split('/');
-    console.log(browserUrl);
     const userid = browserUrl[browserUrl.length - 1] || '2';
-    console.log(userid);
+
     $.ajax({
       method: "GET",
       url: `/api/${userid}/schedules`,
@@ -34,9 +33,7 @@ class App extends React.Component {
 
         for(let i = 0; i < sortedByTime.length; i += 1) {
           const diffms = moment(sortedByTime[i].time).diff(moment());
-          console.log(diffms)
           if(diffms > 0) {
-            console.log(i)
             futureIntervals.push(sortedByTime[i]);
           }
         }
@@ -61,7 +58,7 @@ class App extends React.Component {
     });
   }
 
-  postSchedule(schedule) {
+  postSchedule(schedule, minBefore, secBefore) {
     const schedules = this.state.schedules;
     schedules.push(schedule);
 
@@ -78,13 +75,11 @@ class App extends React.Component {
               success: (data) => {
                 const futureIntervals = [];
                 const sortedByTime = data[0].schedules.sort((a,b) => new moment(a.time) - new moment(b.time));
-                console.log(sortedByTime)
 
                 for(let i = 0; i < sortedByTime.length; i += 1) {
                   const diffms = moment(sortedByTime[i].time).diff(moment());
                   console.log(diffms)
                   if(diffms > 0) {
-                    console.log(i)
                     futureIntervals.push(sortedByTime[i]);
                   }
                 }

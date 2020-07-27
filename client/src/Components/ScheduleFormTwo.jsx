@@ -56,14 +56,14 @@ class ScheduleFormTwo extends React.Component {
     const mm = Number(dateFormat[1]) - 1;
     const dd = Number(dateFormat[2]);
     const hh = Number(timeFormat[0]);
-    const min = Number(timeFormat[1]) - minBefore;
+    const min = Number(timeFormat[1]);
     const formatTime = moment(new Date(yy, mm, dd, hh, min, 0)).format('lll');
-    console.log("formatTime Chekcer: ", formatTime)
+
     const formatTimeStr = formatTime.toString();
     const newSchedule = { description, formatTimeStr, url }
 
-    this.props.postSchedule(newSchedule);
-    this.setState({description: '', updateUrl: ''});
+    this.props.postSchedule(newSchedule, minBefore, secBefore);
+    this.setState({ description: '', updateUrl: '', minBefore: 0, secBefore: 0 });
   }
 
   render() {
