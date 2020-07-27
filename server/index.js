@@ -13,7 +13,8 @@ app.get('/api/:userid/schedules', (req, res) => {
 });
 
 app.put('/api/:userid/schedules', (req, res) => {
-  Controllers.putSchedules(req, res);
+  console.log('put??')
+  Controllers.putSchedule(req, res);
 });
 
 app.post('/api/:userid/schedules', (req, res) => {

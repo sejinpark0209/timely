@@ -24,24 +24,11 @@ function postSchedule(req, res) {
   });
 }
 
-// function postSchedule(req, res) {
-//   const userId = req.params.userid;
-//   console.log(req.body)
-//   const updatedSchedules = req.body;
-//   Models.postSchedule(userId, updatedSchedules, (err, data) => {
-//     if(err) {
-//       res.status(400).send(data);
-//     } else  {
-//       res.status(200).send(data);
-//     }
-//   });
-// }
-
-function putSchedules(req, res) {
+function putSchedule(req, res) {
   const userId = req.params.userid;
-  console.log(req.body)
-  const shiftedSchedule = req.body;
-  Models.putSchedules(userId, shiftedSchedule, (err, data) => {
+  const updatedSchedule = req.body.data;
+
+  Models.putSchedule(userId, updatedSchedule, (err, data) => {
     if(err) {
       res.status(400).send(data);
     } else  {
@@ -67,5 +54,5 @@ module.exports = {
   getSchedules,
   postSchedule,
   deleteSchedule,
-  putSchedules
+  putSchedule
 }

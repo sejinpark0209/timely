@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 import ScheduleEditForm from './ScheduleEditForm.jsx';
 
 class ScheduleItem extends React.Component {
@@ -9,6 +10,7 @@ class ScheduleItem extends React.Component {
     }
     this.onEditClicked = this.onEditClicked.bind(this);
     this.deleteClicked = this.deleteClicked.bind(this);
+    this.setExtendedTimeout = this.setExtendedTimeout.bind(this);
   }
 
   onEditClicked() {
@@ -21,6 +23,16 @@ class ScheduleItem extends React.Component {
     deleteSchedule(schedule._id);
   }
 
+  setExtendedTimeout(callback, ms) {
+    if(ms > 2147483647) {
+      setTimeout(() => {
+        setExtendedimeout(callback, (ms - 2147483647));
+      }, 2147483647);
+    } else {
+      setTimeout(callback, ms);
+    }
+  }
+
   render() {
     let editForm;
     if(this.state.editClicked) {
@@ -28,7 +40,13 @@ class ScheduleItem extends React.Component {
     } else {
       null;
     }
-    console.log(this.props.schedule)
+    const diffms = moment(this.props.schedule.time).diff(moment());
+    console.log('first diffms: ', diffms);
+    if(diffms > 0) {
+      this.setExtendedTimeout(() => {
+        window.open("https://www.google.com");
+      }, diffms);
+    }
 
     return (
       <div>
