@@ -9,13 +9,15 @@ class ScheduleFormTwo extends React.Component {
       time: '',
       date: '',
       url: '',
+      minBefore: 0,
+      secBefore: 0,
     }
     this.updateDescription= this.updateDescription.bind(this);
     this.updateDate = this.updateDate.bind(this);
     this.updateTime = this.updateTime.bind(this);
     this.updateUrl = this.updateUrl.bind(this);
-    this.updateEarlymin = this.updateEarlymin.bind(this);
-    this.updateEarlysec = this.updateEarlysec.bind(this);
+    this.updateMinbefore = this.updateMinbefore.bind(this);
+    this.updateSecbefore = this.updateSecbefore.bind(this);
     this.onSubmitHandler = this.onSubmitHandler.bind(this);
   }
 
@@ -35,17 +37,17 @@ class ScheduleFormTwo extends React.Component {
     this.setState({ url: e.target.value });
   }
 
-  updateEarlymin() {
-
+  updateMinbefore(e) {
+    this.setState({ minBefore: e.target.value });
   }
 
-  updateEarlysec() {
-
+  updateSecbefore(e) {
+    this.setState({ secBefore: e.target.value })
   }
 
   onSubmitHandler(e) {
     e.preventDefault();
-    const { description, time, date, url } = this.state;
+    const { description, time, date, url, minBefore, secBefore } = this.state;
 
     const dateFormat = date.toString().split('-');
     const timeFormat = time.toString().split(':');
@@ -54,9 +56,9 @@ class ScheduleFormTwo extends React.Component {
     const mm = Number(dateFormat[1]) - 1;
     const dd = Number(dateFormat[2]);
     const hh = Number(timeFormat[0]);
-    const min = Number(timeFormat[1]);
+    const min = Number(timeFormat[1]) - minBefore;
     const formatTime = moment(new Date(yy, mm, dd, hh, min, 0)).format('lll');
-
+    console.log("formatTime Chekcer: ", formatTime)
     const formatTimeStr = formatTime.toString();
     const newSchedule = { description, formatTimeStr, url }
 
@@ -84,9 +86,9 @@ class ScheduleFormTwo extends React.Component {
             </label>
             <label>
               join earlier:
-              <input type="number" name="earlymin" step="1" min="1" max="60" value={this.state.earlymin} onInput={this.updateEarlymin} />
+              <input type="number" name="earlymin" step="1" min="1" max="10" value={this.state.earlymin} onInput={this.updateMinbefore} />
               min
-              <input type="number" name="earlysec" step="1" min="1" max="10"value={this.state.earlysec} onChange={this.updateEarlysec} />
+              <input type="number" name="earlysec" step="1" min="1" max="60"value={this.state.earlysec} onChange={this.updateSecbefore} />
               sec
             </label>
           <input type="submit" value="Add" />
