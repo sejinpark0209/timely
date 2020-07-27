@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const path = require('path');
 const Controllers = require('./Controllers.js');
 
 const app = express();
@@ -7,6 +8,10 @@ const port = 3000;
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static('client/dist'));
+
+app.get('/:userid', (req, res) => {
+  res.sendFile(path.join(__dirname, '/../client/dist/index.html'));
+});
 
 app.get('/api/:userid/schedules', (req, res) => {
   Controllers.getSchedules(req, res);

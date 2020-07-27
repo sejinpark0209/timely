@@ -1,7 +1,6 @@
 import React from 'react';
 import $ from 'jquery';
 import moment from 'moment';
-import "@babel/polyfill";
 import ScheduleForm from './ScheduleForm.jsx';
 import ScheduleList from './ScheduleList.jsx';
 import ScheduleFormNoCal from './ScheduleFormNoCal.jsx';
@@ -21,14 +20,17 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+    const browserUrl = window.location.href.split('/');
+    console.log(browserUrl);
+    const userid = browserUrl[browserUrl.length - 1] || '2';
+    console.log(userid);
     $.ajax({
       method: "GET",
-      url: "/api/0/schedules",
+      url: `/api/${userid}/schedules`,
       success: (data) => {
 
         const futureIntervals = [];
         const sortedByTime = data[0].schedules.sort((a,b) => new moment(a.time) - new moment(b.time));
-        console.log(sortedByTime)
 
         for(let i = 0; i < sortedByTime.length; i += 1) {
           const diffms = moment(sortedByTime[i].time).diff(moment());
@@ -40,23 +42,12 @@ class App extends React.Component {
         }
 
         this.setState({ schedules: futureIntervals }, () => {
-          console.log(this.state.schedules)
           $.ajax({
             method: "PUT",
             url: "/api/0/schedules",
             data: { data: JSON.stringify(this.state.schedules) },
             success: (data) => {
               console.log('component mount update posted!')
-              // $.ajax({
-              //   method: "GET",
-              //   url: "/api/0/schedules",
-              //   success: (data) => {
-              //     this.setState({ schedules: data[0].schedules });
-              //   },
-              //   error: (err) => {
-              //     console.log("err on get request: ", err);
-              //   }
-              // });
             },
             error: (data) => {
               console.log("error on adding schedule");
