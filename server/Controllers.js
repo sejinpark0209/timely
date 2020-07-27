@@ -13,9 +13,8 @@ function getSchedules(req, res) {
 
 function postSchedule(req, res) {
   const userId = req.params.userid;
-  console.log(req.body)
-  const { description, formatTimeStr, url } = req.body;
-  Models.postSchedule(userId, description, formatTimeStr, url, (err, data) => {
+  const { description, formatTimeStr, url, minbefore, secbefore } = req.body;
+  Models.postSchedule(userId, description, formatTimeStr, url, minbefore, secbefore, (err, data) => {
     if(err) {
       res.status(400).send(data);
     } else  {

@@ -33,27 +33,32 @@ class ScheduleItem extends React.Component {
   }
 
   render() {
+    const { schedule, updateSchedule } = this.props;
+
     let editForm;
     if(this.state.editClicked) {
-      editForm = <ScheduleEditForm updateSchedule={this.props.updateSchedule} schedule={this.props.schedule}/>
+      editForm = <ScheduleEditForm updateSchedule={updateSchedule} schedule={schedule}/>
     } else {
       null;
     }
-    const diffms = moment(this.props.schedule.time).diff(moment());
+
+    const subtractSec = Number(schedule.minbefore) * 60 + Number(schedule.secbefore);
+    const diffms = moment(schedule.time).subtract(subtractSec, 'seconds').diff(moment());
+
     if(diffms > 0) {
       this.setExtendedTimeout(() => {
-        window.open(this.props.schedule.url);
-        this.props.deleteSchedule(this.props.schedule._id);
+        window.open(schedule.url);
+        this.props.deleteSchedule(schedule._id);
       }, diffms);
     }
 
     return (
       <div>
-        Description: {this.props.schedule.description}
+        Description: {schedule.description}
         <br/>
-        Time: {this.props.schedule.time}
+        Time: {schedule.time}
         <br/>
-        Link: {this.props.schedule.url}
+        Link: {schedule.url}
         <br/>
         {editForm}
         <button onClick={this.onEditClicked}>Edit</button>

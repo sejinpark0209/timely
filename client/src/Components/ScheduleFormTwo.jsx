@@ -9,8 +9,8 @@ class ScheduleFormTwo extends React.Component {
       time: '',
       date: '',
       url: '',
-      minBefore: 0,
-      secBefore: 0,
+      minbefore: 0,
+      secbefore: 0,
     }
     this.updateDescription= this.updateDescription.bind(this);
     this.updateDate = this.updateDate.bind(this);
@@ -38,16 +38,16 @@ class ScheduleFormTwo extends React.Component {
   }
 
   updateMinbefore(e) {
-    this.setState({ minBefore: e.target.value });
+    this.setState({ minbefore: e.target.value });
   }
 
   updateSecbefore(e) {
-    this.setState({ secBefore: e.target.value })
+    this.setState({ secbefore: e.target.value })
   }
 
   onSubmitHandler(e) {
     e.preventDefault();
-    const { description, time, date, url, minBefore, secBefore } = this.state;
+    const { description, time, date, url, minbefore, secbefore } = this.state;
 
     const dateFormat = date.toString().split('-');
     const timeFormat = time.toString().split(':');
@@ -60,10 +60,10 @@ class ScheduleFormTwo extends React.Component {
     const formatTime = moment(new Date(yy, mm, dd, hh, min, 0)).format('lll');
 
     const formatTimeStr = formatTime.toString();
-    const newSchedule = { description, formatTimeStr, url }
+    const newSchedule = { description, formatTimeStr, url, minbefore, secbefore }
 
-    this.props.postSchedule(newSchedule, minBefore, secBefore);
-    this.setState({ description: '', updateUrl: '', minBefore: 0, secBefore: 0 });
+    this.props.postSchedule(newSchedule);
+    this.setState({ description: '', updateUrl: '', minbefore: 0, secbefore: 0 });
   }
 
   render() {

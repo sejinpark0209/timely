@@ -6,7 +6,9 @@ const scheduleSchema = new mongoose.Schema({
   schedules: [{
     description: String,
     time: String,
-    url: String
+    url: String,
+    minbefore: Number,
+    secbefore: Number
   }]
 });
 
