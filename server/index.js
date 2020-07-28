@@ -10,6 +10,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static('client/dist'));
 
 
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '/../client/dist/index.html'));
+});
+
 app.get('/:userid', (req, res) => {
   res.sendFile(path.join(__dirname, '/../client/dist/index.html'));
 });
