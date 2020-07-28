@@ -1,6 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import ScheduleEditForm from './ScheduleEditForm.jsx';
+import '../styles/ScheduleItem.css';
 
 class ScheduleItem extends React.Component {
   constructor(props) {

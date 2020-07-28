@@ -154,19 +154,17 @@ class ScheduleForm extends React.Component {
     for(let i = 0; i < day.length; i += 1) {
       var firstDay = moment(new Date(startyy, startmm, startdd, starthh, startmin, 0));
       var lastDay = moment(new Date(endyy, endmm, enddd, endhh, endmin, 0));
-      console.log('i for loop: ', i)
+
       var idx = 0;
-      var startIdx = 0;
       for(let j = 0; j < dayArrIndex.length; j++) {
         if(dayArrIndex[j] === day[i]) {
           console.log('true?')
           idx = j;
-          startIdx = j;
         }
       }
-      while(lastDay.diff(firstDay) > 0) {
-        var firstDay = moment(new Date(startyy, startmm, startdd, starthh, startmin, 0)).day(startIdx);
 
+      while(lastDay.diff(firstDay) > 0) {
+        var firstDay = moment(new Date(startyy, startmm, startdd, starthh, startmin, 0)).day(idx);
         if(lastDay.diff(firstDay) < 0) {
           break;
         }

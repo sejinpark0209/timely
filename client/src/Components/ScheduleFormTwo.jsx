@@ -1,5 +1,6 @@
 import React from 'react';
 import moment from 'moment';
+import '../styles/ScheduleFormTwo.css';
 
 class ScheduleFormTwo extends React.Component {
   constructor(props) {
@@ -68,30 +69,39 @@ class ScheduleFormTwo extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="formInnerContainer">
         <form onSubmit={this.onSubmitHandler}>
+          <div className="form1firstRow">
             <label>
-              Description:
-              <input type="text" name="description" value={this.state.description} onChange={this.updateDescription} />
+              Description
+              <input className="form1InputBox des1Input" type="text" name="description" value={this.state.description} onChange={this.updateDescription} />
+            </label>
+          </div>
+          <div className="form1secondRow">
+            <label>
+              Date & Time
+              <input className="form1InputBox date1Input" type="date" name="date" value={this.state.date} onChange={this.updateDate} />
             </label>
             <label>
-              <input type="date" name="date" value={this.state.date} onChange={this.updateDate} />
+              <input className="form1InputBox time1Input" type="time" name="time" value={this.state.time} onChange={this.updateTime} />
             </label>
+          </div>
+          <div className="form1thirdRow">
             <label>
-              <input type="time" name="time" value={this.state.time} onChange={this.updateTime} />
+              Join earlier
+              <input className="form1InputBox min1InputBox" type="number" name="earlymin" step="1" min="1" max="10" value={this.state.earlymin} onInput={this.updateMinbefore} />
+              {" "}min
+              <input className="form1InputBox sec1InputBox" type="number" name="earlysec" step="1" min="1" max="60" value={this.state.earlysec} onChange={this.updateSecbefore} />
+              {" "}sec
             </label>
+          </div>
+          <div className="form1forthRow">
             <label>
-              Link:
-              <input type="text" name="link" value={this.state.url} onChange={this.updateUrl} />
+              Link
+              <input className="form1InputBox link1InputBox" type="text" name="link" value={this.state.url} onChange={this.updateUrl} />
             </label>
-            <label>
-              join earlier:
-              <input type="number" name="earlymin" step="1" min="1" max="10" value={this.state.earlymin} onInput={this.updateMinbefore} />
-              min
-              <input type="number" name="earlysec" step="1" min="1" max="60" value={this.state.earlysec} onChange={this.updateSecbefore} />
-              sec
-            </label>
-          <input type="submit" value="Add" />
+            <input className="input1AddBtn" type="submit" value="Add" />
+          </div>
         </form>
       </div>
     )

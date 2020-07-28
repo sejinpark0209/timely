@@ -1,5 +1,5 @@
 # Project Name #
-MEET ON TIME
+TIMELY
 
 ## Heading ##
   A web application that automatically opens zoom or other meeting app links at the exact time in the calendar useful in the remote work industry.

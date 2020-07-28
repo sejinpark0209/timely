@@ -4,6 +4,7 @@ import moment from 'moment';
 import ScheduleForm from './ScheduleForm.jsx';
 import ScheduleList from './ScheduleList.jsx';
 import ScheduleFormTwo from './ScheduleFormTwo.jsx';
+import '../styles/App.css';
 
 class App extends React.Component {
   constructor(props) {
@@ -199,10 +200,13 @@ class App extends React.Component {
     }
 
     return (
-      <div>
-        <button onClick={this.changeView} >change view</button>
-        <div>{form}</div>
-        <div><ScheduleList schedules={schedules} deleteSchedule={deleteSchedule} updateSchedule={updateSchedule} /></div>
+      <div className="appContainer">
+        <div className="topBar">
+          <span className="appTitle">Timely</span>
+          <button className="changeOptionBtn" onClick={this.changeView} >Change Option</button>
+        </div>
+        <div className="formContainer">{form}</div>
+        <div className="listContainer"><ScheduleList schedules={schedules} deleteSchedule={deleteSchedule} updateSchedule={updateSchedule} /></div>
       </div>
     );
   }

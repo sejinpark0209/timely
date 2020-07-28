@@ -1,5 +1,7 @@
 import React from 'react';
 import ScheduleItem from './ScheduleItem.jsx';
+import '../styles/ScheduleList.css';
+
 
 function ScheduleList(props) {
   console.log(props.schedules);

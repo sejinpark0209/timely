@@ -1,0 +1,51 @@
+.appContainer{
+  width: 100%;
+  height: 100%;
+  background-color: #fff5d7;
+}
+
+.topBar {
+  width: 100%;
+  height: 100px;
+  text-align: center;
+}
+
+.appTitle {
+  color : #2f1728;
+  font-family: Arial;
+  font-size: 50px;
+  font-weight: bold;
+}
+
+.changeOptionBtn {
+	background-color: #ff5e6c;
+	border-radius: 4px;
+	border: 5px solid #ff5e6c;
+	display: inline-block;
+	cursor: pointer;
+	color : #2f1728;
+	font-family: Arial;
+	font-size: 13px;
+	font-weight: bold;
+	padding: 10px 16px;
+	text-decoration: none;
+  text-shadow: 0px 1px 0px #ff5e6c;
+  float: right;
+}
+
+.formContainer {
+  width: 100%;
+  height: 150px;
+}
+
+.changeOptionBtn:hover {
+  cursor: pointer;
+  color: #000000;
+}
+
+@media all and (max-width: 30em) {
+  .changeOptionBtn {
+    display: block;
+    margin: 0.4em auto;
+  }
+}
