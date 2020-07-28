@@ -88,7 +88,7 @@ class ScheduleFormTwo extends React.Component {
               join earlier:
               <input type="number" name="earlymin" step="1" min="1" max="10" value={this.state.earlymin} onInput={this.updateMinbefore} />
               min
-              <input type="number" name="earlysec" step="1" min="1" max="60"value={this.state.earlysec} onChange={this.updateSecbefore} />
+              <input type="number" name="earlysec" step="1" min="1" max="60" value={this.state.earlysec} onChange={this.updateSecbefore} />
               sec
             </label>
           <input type="submit" value="Add" />
