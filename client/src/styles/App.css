@@ -39,6 +39,10 @@
 	text-decoration: none;
   text-shadow: 0px 1px 0px #ff5e6c;
   float: right;
+  transition: transform .2s;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  transition: all 0.3s;
 }
 
 .hideFormBtn {
@@ -57,6 +61,10 @@
   position: absolute;
   top: 98px;
   float: right;
+  transition: transform .2s;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  transition: all 0.3s;
 }
 
 .formContainer {
@@ -75,9 +83,26 @@
 
 .changeOptionBtn:hover {
   cursor: pointer;
-  color: #000000;
+  transform: scale(1.2);
+}
+
+.hideFormBtn:hover {
+  cursor: pointer;
+  transform: scale(1.2);
 }
 
 .changeOptionBtn:focus {
   outline: 0;
+}
+
+.hideFormBtn:focus {
+  outline: 0;
+}
+
+.changeOptionBtn:active {
+  transform: scale(1.0);
+}
+
+.hideFormBtn:active {
+  transform: scale(1.0);
 }
