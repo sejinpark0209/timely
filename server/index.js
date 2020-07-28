@@ -11,11 +11,11 @@ app.use(express.static('client/dist'));
 
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '/../client/dist/index.html'));
+  res.sendFile(path.join(__dirname, '/../app/client/dist/index.html'));
 });
 
 app.get('/:userid', (req, res) => {
-  res.sendFile(path.join(__dirname, '/../client/dist/index.html'));
+  res.sendFile(path.join(__dirname, '/../app/client/dist/index.html'));
 });
 
 app.get('/api/:userid/schedules', (req, res) => {
@@ -36,10 +36,10 @@ app.delete('/api/:userid/schedules/:scheduleid', (req, res) => {
 
 
 if(process.env.NODE_ENV === 'production') {
-  app.use(express.static('client/dist'));
+  app.use(express.static('/app/client/dist'));
 
   app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
+    res.sendFile(path.join(__dirname, 'app', 'client', 'dist', 'index.html'));
   })
 }
 

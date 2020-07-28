@@ -9,7 +9,7 @@
     "webpack": "webpack -d --watch",
     "webpack-p": "webpack --mode production",
     "seed": "node database/seed.js",
-    "heroku-postbuild": "npm install && npm run webpack-p"
+    "heroku-postbuild": "cd client && npm install && npm run webpack-p"
   },
   "repository": {
     "type": "git",
