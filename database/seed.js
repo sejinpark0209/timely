@@ -31,15 +31,15 @@ const sampleSchedules = [
   {
     user_id: 1,
     schedules: [{
-      description: "SDC",
-      time: moment(new Date(2020, 7, 28, 13, 24, 0)).format('lll'),
-      url: "https://google.com",
-      minbefore: 0,
+      description: "SDC team meeting",
+      time: moment(new Date(2020, 7, 30, 9, 15, 0)).format('lll'),
+      url: "hangouts.google.com/call/M5Jdhu-XVv3aXQ",
+      minbefore: 1,
       secbefore: 0
       },
       {
-      description: "preparty",
-      time: moment(new Date(2020, 7, 28, 13, 24, 0)).format('lll'),
+      description: "presentation",
+      time: moment(new Date(2020, 7, 30, 18, 30, 0)).format('lll'),
       url: "https://youtube.com",
       minbefore: 0,
       secbefore: 0

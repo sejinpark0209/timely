@@ -4,10 +4,11 @@ const path = require('path');
 const Controllers = require('./Controllers.js');
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 8080;
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static('client/dist'));
+
 
 app.get('/:userid', (req, res) => {
   res.sendFile(path.join(__dirname, '/../client/dist/index.html'));
@@ -28,5 +29,10 @@ app.post('/api/:userid/schedules', (req, res) => {
 app.delete('/api/:userid/schedules/:scheduleid', (req, res) => {
   Controllers.deleteSchedule(req, res);
 });
+
+
+if(process.env.NODE_ENV === 'production') {
+
+}
 
 app.listen(port, () => console.log(`App listening at http://localhost:${port}`));
