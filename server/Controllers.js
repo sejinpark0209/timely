@@ -63,7 +63,7 @@ function getFootsteps(req, res) {
 
 function postFootsteps(req, res) {
   const { username, message, createdAt } = req.body;
-  console.log(req.body)
+
   Models.postFootsteps(username, message, createdAt, (err, data) => {
     if(err) {
       res.status(400).send(data);
