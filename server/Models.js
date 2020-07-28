@@ -15,22 +15,57 @@ function putSchedule(userId, updatedSchedule, callback) {
 }
 
 //working version
+// function postSchedule(userId, description, time, url, minbefore, secbefore, callback) {
+//   const id = parseInt(userId);
+//   const mindiff = parseInt(minbefore);
+//   const secdiff = parseInt(secbefore);
+//   Schedule.update({ user_id: id },
+//     {
+//       $push: {
+//         schedules: {
+//           description: description,
+//           time: time,
+//           url: url,
+//           minbefore: mindiff,
+//           secbefore: secdiff
+//         },
+//       },
+//     }, callback);
+// }
+
 function postSchedule(userId, description, time, url, minbefore, secbefore, callback) {
   const id = parseInt(userId);
   const mindiff = parseInt(minbefore);
   const secdiff = parseInt(secbefore);
-  Schedule.update({ user_id: id },
-    {
-      $push: {
-        schedules: {
+
+  Schedule.count({ user_id: userId }, function (err, count) {
+    if(count > 0) {
+      Schedule.update({ user_id: id },
+        {
+          $push: {
+            schedules: {
+              description: description,
+              time: time,
+              url: url,
+              minbefore: mindiff,
+              secbefore: secdiff
+            },
+          },
+        }, callback);
+    } else {
+      const newSchedule = new Schedule({
+        user_id: id,
+        schedules: [{
           description: description,
           time: time,
           url: url,
           minbefore: mindiff,
           secbefore: secdiff
-        },
-      },
-    }, callback);
+        }]
+      });
+      newSchedule.save(callback);
+    }
+  });
 }
 
 function deleteSchedule(userId, scheduleId, callback) {
@@ -59,5 +94,5 @@ module.exports = {
   deleteSchedule,
   putSchedule,
   getFootsteps,
-  postFootsteps
+  postFootsteps,
 }

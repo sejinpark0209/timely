@@ -27,6 +27,7 @@ app.put('/api/:userid/schedules', (req, res) => {
 });
 
 app.post('/api/:userid/schedules', (req, res) => {
+  console.log('postindex')
   Controllers.postSchedule(req, res);
 });
 

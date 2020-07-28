@@ -8,22 +8,22 @@ const sampleSchedules = [
   user_id: 0,
   schedules: [{
     description: "KICK OFF",
-    time: moment(new Date(2020, 7, 26, 16, 35, 0)).format('lll'),
+    time: moment(new Date(2020, 7, 29, 09, 00, 0)).format('lll'),
     url: "https://bit.ly/HRSF2-zoom",
     minbefore: 0,
     secbefore: 0
     },
     {
     description: "PM Check In",
-    time: moment(new Date(2020, 7, 27, 13, 24, 0)).format('lll'),
+    time: moment(new Date(2020, 7, 29, 13, 30, 0)).format('lll'),
     url: "https://bit.ly/HRSF2-zoom",
     minbefore: 0,
     secbefore: 0
     },
     {
     description: "MVP solo",
-    time: moment(new Date(2020, 7, 27, 13, 24, 0)).format('lll'),
-    url: "https://google.com",
+    time: moment(new Date(2020, 7, 29, 13, 24, 0)).format('lll'),
+    url: "https://bit.ly/HRSF2-zoom",
     minbefore: 0,
     secbefore: 0
     }]

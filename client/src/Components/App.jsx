@@ -71,10 +71,10 @@ class App extends React.Component {
   postSchedule(schedule, minBefore, secBefore) {
     const browserUrl = window.location.href.split('/');
     const userid = browserUrl[browserUrl.length - 1] || '2';
-
+    console.log(userid)
     const schedules = this.state.schedules;
     schedules.push(schedule);
-
+    console.log('post schedule: ', schedules)
     this.setState({ schedules: schedules },
       () => {
         $.ajax({
@@ -86,6 +86,7 @@ class App extends React.Component {
               method: "GET",
               url: `/api/${userid}/schedules`,
               success: (data) => {
+                console.log(data)
                 const futureIntervals = [];
                 const sortedByTime = data[0].schedules.sort((a,b) => new moment(a.time) - new moment(b.time));
 
