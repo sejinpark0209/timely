@@ -1,5 +1,6 @@
 import React from 'react';
 import moment from 'moment';
+import $ from 'jquery';
 import ScheduleEditForm from './ScheduleEditForm.jsx';
 import '../styles/ScheduleItem.css';
 
@@ -54,16 +55,20 @@ class ScheduleItem extends React.Component {
     }
 
     return (
-      <div>
-        Description: {schedule.description}
-        <br/>
-        Time: {schedule.time}
-        <br/>
-        Link: {schedule.url}
-        <br/>
-        {editForm}
-        <button onClick={this.onEditClicked}>Edit</button>
-        <button onClick={this.deleteClicked}>Delete</button>
+      <div className="itemContainer">
+        <div className="itemInfo">
+          <span className="itemDes">Description: {schedule.description}</span>
+          <br/>
+          <span className="itemTime">Time: {schedule.time} </span>
+          <br/>
+          <span className="itemLink">Link: <a href={schedule.url}>{schedule.url}</a> </span>
+          <br/>
+          {editForm}
+        </div>
+        <div className="itemBtnContainer">
+          {/* <button className="itemEditBtn" onClick={this.onEditClicked}>Edit</button> */}
+          <button className="itemDeleteBtn" onClick={this.deleteClicked}>Delete</button>
+        </div>
       </div>
     )
   }

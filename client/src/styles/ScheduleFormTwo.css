@@ -1,25 +1,25 @@
 .form1firstRow {
   display: block;
   margin-bottom: 5px;
-  margin-left: 20px;
+  margin-left: 60px;
 }
 
 .form1secondRow {
   display: block;
   margin-bottom: 5px;
-  margin-left: 20px;
+  margin-left: 60px;
 }
 
 .form1thirdRow {
   display: block;
   margin-bottom: 5px;
-  margin-left: 20px;
+  margin-left: 60px;
 }
 
 .form1forthRow {
   display: block;
   margin-bottom: 5px;
-  margin-left: 20px;
+  margin-left: 60px;
 }
 
 .des1Input {
@@ -31,7 +31,7 @@
 }
 
 .date1Input {
-  margin-left: 10px;
+  margin-left: 28px;
   border: 2px solid #2f1728;
   border-radius: 4px;
   padding: 5px 20px;
@@ -47,7 +47,7 @@
 }
 
 .min1InputBox {
-  margin-left: 22px;
+  margin-left: 18px;
   border: 2px solid #2f1728;
   border-radius: 4px;
   padding: 5px 20px;
@@ -63,7 +63,7 @@
 }
 
 .link1InputBox {
-  margin-left: 64px;
+  margin-left: 77px;
   border: 2px solid #2f1728;
   border-radius: 4px;
   padding: 5px 20px;

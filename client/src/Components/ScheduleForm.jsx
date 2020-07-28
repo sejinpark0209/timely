@@ -224,9 +224,9 @@ class ScheduleForm extends React.Component {
             <label>
               Join Earlier
               <input className="min2InputBox" type="number" name="earlymin" step="1" min="1" max="10" value={this.state.earlymin} onInput={this.updateMinbefore} />
-              min
+              {" "}min
               <input className="sec2InputBox" type="number" name="earlysec" step="1" min="1" max="60"value={this.state.earlysec} onChange={this.updateSecbefore} />
-              sec
+              {" "}sec
             </label>
           </div>
           <div className="form2fifthRow">
