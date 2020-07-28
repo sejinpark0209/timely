@@ -4,6 +4,7 @@ import moment from 'moment';
 import ScheduleForm from './ScheduleForm.jsx';
 import ScheduleList from './ScheduleList.jsx';
 import ScheduleFormTwo from './ScheduleFormTwo.jsx';
+import Footsteps from './Footsteps.jsx';
 import '../styles/App.css';
 
 class App extends React.Component {
@@ -11,8 +12,9 @@ class App extends React.Component {
     super(props);
     this.state = {
       schedules: [],
+      footsteps: [],
       scheduledIntervals: [],
-      view: 'option1',
+      view: 'singlePost',
       hideForm: false
     }
     this.postSchedule = this.postSchedule.bind(this);
@@ -20,7 +22,11 @@ class App extends React.Component {
     this.deleteSchedule = this.deleteSchedule.bind(this);
     this.deleteSchedule = this.deleteSchedule.bind(this);
     this.changeView = this.changeView.bind(this);
+    this.footStepView = this.footStepView.bind(this);
     this.hideForm = this.hideForm.bind(this);
+    this.footStepView = this.footStepView.bind(this);
+    this.clickOnTitle = this.clickOnTitle.bind(this);
+    this.postFootstep = this.postFootstep.bind(this);
   }
 
   componentDidMount() {
@@ -182,10 +188,10 @@ class App extends React.Component {
   }
 
   changeView() {
-    if(this.state.view === 'option1') {
-      this.setState({ view: 'option2' });
+    if(this.state.view === 'singlePost') {
+      this.setState({ view: 'multSelect' });
     } else {
-      this.setState({ view: 'option1'});
+      this.setState({ view: 'singlePost'});
     }
   }
 
@@ -193,16 +199,72 @@ class App extends React.Component {
     this.setState({ hideForm: !this.state.hideForm });
   }
 
+  footStepView() {
+    this.setState({ view: 'footstep' }, () => {
+      $.ajax({
+        method: "GET",
+        url: '/api/footsteps',
+        success: (data) => {
+          console.log('footstep data: ', data)
+          this.setState({ footsteps: data })
+        },
+        error: (err) => {
+          console.log(err);
+        }
+      });
+    });
+  }
+
+  postFootstep(username, message) {
+    $.ajax({
+      method: "POST",
+      url: '/api/footsteps',
+      data: {
+        username: username,
+        message: message,
+        createdAt: new Date()
+      },
+      success: (data) => {
+        $.ajax({
+          method: "GET",
+          url: '/api/footsteps',
+          success: (data) => {
+            this.setState({ footsteps: data })
+          },
+          error: (err) => {
+            console.log(err);
+          }
+        });
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    });
+  }
+
+  clickOnTitle() {
+    this.setState({ view: 'singlePost '});
+  }
+
   render() {
     // updateschedule not functional. okay to delete
-    const { postSchedule, deleteSchedule, postMultSchedule, updateSchedule } = this;
-    const { schedules, view, hideForm } = this.state;
+    const { postSchedule, deleteSchedule, postMultSchedule, updateSchedule, postFootstep } = this;
+    const { schedules, view, hideForm, footsteps } = this.state;
 
     let form;
-    if(view === 'option2') {
+    let footstep;
+    let scheduleList = <ScheduleList schedules={schedules} deleteSchedule={deleteSchedule} updateSchedule={updateSchedule} />;
+
+    if(view === 'multSelect') {
       form = <ScheduleForm postMultSchedule={postMultSchedule} />;
     } else {
       form = <ScheduleFormTwo postSchedule={postSchedule} />;
+    }
+
+    if(view === 'footstep') {
+      form = null;
+      scheduleList = null;
+      footstep = <Footsteps footsteps={footsteps} postFootstep={postFootstep} />
     }
 
     if(hideForm) {
@@ -212,14 +274,16 @@ class App extends React.Component {
     return (
       <div className="appContainer">
         <div className="topBar">
-          <span className="appTitle">Timely</span>
+          <span className="appTitle" onClick={this.clickOnTitle}>Timely</span>
           <div className="topBarBtnContainer">
             <button className="changeOptionBtn" onClick={this.changeView} >Change Option</button>
             <button className="hideFormBtn" onClick={this.hideForm} >Hide Form</button>
+            <button className="footStepBtn" onClick={this.footStepView} >Footsteps</button>
           </div>
         </div>
+        {footstep}
         <div className="formContainer">{form}</div>
-        <div className="listContainer"><ScheduleList schedules={schedules} deleteSchedule={deleteSchedule} updateSchedule={updateSchedule} /></div>
+        <div className="listContainer">{scheduleList}</div>
       </div>
     );
   }

@@ -1,4 +1,5 @@
 const Schedule = require('../database/Schedule.js')
+const Footstep = require('../database/Footstep.js')
 const moment = require('moment');
 
 function getSchedules(userId, callback) {
@@ -44,9 +45,19 @@ function deleteSchedule(userId, scheduleId, callback) {
     }, callback);
 }
 
+function getFootsteps(callback) {
+  Footstep.find({}, callback).sort({createdAt: -1});
+}
+
+function postFootsteps(username, message, createdAt, callback) {
+  Footstep({username: username, message: message, createdAt: createdAt}).save(callback);
+}
+
 module.exports = {
   getSchedules,
   postSchedule,
   deleteSchedule,
-  putSchedule
+  putSchedule,
+  getFootsteps,
+  postFootsteps
 }

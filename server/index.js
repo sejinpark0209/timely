@@ -4,18 +4,18 @@ const path = require('path');
 const Controllers = require('./Controllers.js');
 
 const app = express();
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 3000;
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static('client/dist'));
 
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '/client/dist/index.html'));
+  res.sendFile(path.join(__dirname, '../client/dist/index.html'));
 });
 
 app.get('/:userid', (req, res) => {
-  res.sendFile(path.join(__dirname, '/client/dist/index.html'));
+  res.sendFile(path.join(__dirname, '../client/dist/index.html'));
 });
 
 app.get('/api/:userid/schedules', (req, res) => {
@@ -32,6 +32,14 @@ app.post('/api/:userid/schedules', (req, res) => {
 
 app.delete('/api/:userid/schedules/:scheduleid', (req, res) => {
   Controllers.deleteSchedule(req, res);
+});
+
+app.get('/api/footsteps', (req, res) => {
+  Controllers.getFootsteps(req, res);
+});
+
+app.post('/api/footsteps', (req, res) => {
+  Controllers.postFootsteps(req, res);
 });
 
 

@@ -1,0 +1,73 @@
+.footstepFormContainer {
+  margin-bottom: 30px;
+}
+
+.footstepFormUserContainer {
+  text-align: center;
+  font-family: 'Staatliches', cursive;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.footstepFormMessageContainer {
+  text-align: center;
+  font-family: 'Staatliches', cursive;
+  font-size: 20px;
+}
+
+.usernameInput {
+  margin-left: 10px;
+  border: 2px solid #2f1728;
+  border-radius: 4px;
+  padding: 5px 20px;
+  background-color: #fff5d7;
+}
+
+.messageInput {
+  margin-left: 10px;
+  border: 2px solid #2f1728;
+  border-radius: 4px;
+  padding: 5px 20px;
+  background-color: #fff5d7;
+}
+
+.messageLabel {
+  position: relative;
+  bottom: 20px;
+}
+
+.footstepSubmitBtnCont {
+  text-align: center;
+  position: relative;
+  left: 10px;
+}
+
+.footstepSubmitBtn {
+  background-color: #ff5e6c;
+	border-radius: 4px;
+	border: 5px solid #ff5e6c;
+	display: inline-block;
+	cursor: pointer;
+	color : #2f1728;
+	font-family: Arial;
+	font-size: 13px;
+	font-weight: bold;
+	padding: 3px 40px;
+	text-decoration: none;
+  text-shadow: 0px 1px 0px #ff5e6c;
+  margin-left: 15px;
+  transition: transform .2s;
+}
+
+.footstepSubmitBtn:hover {
+  transform: scale(1.1);
+}
+
+.footstepSubmitBtn:focus {
+  outline: 0;
+}
+
+.footstepSubmitBtn:active {
+  transform: scale(1.0);
+}
+

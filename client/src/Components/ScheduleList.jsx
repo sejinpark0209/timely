@@ -4,7 +4,6 @@ import '../styles/ScheduleList.css';
 
 
 function ScheduleList(props) {
-  console.log(props.schedules);
   return (
     <div>
       {props.schedules.map((schedule, index) =>

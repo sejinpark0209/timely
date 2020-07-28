@@ -51,10 +51,34 @@ function deleteSchedule(req, res) {
   });
 }
 
+function getFootsteps(req, res) {
+  Models.getFootsteps((err, data) => {
+    if(err) {
+      res.status(400).send(data);
+    } else  {
+      res.status(200).send(data);
+    }
+  });
+}
+
+function postFootsteps(req, res) {
+  const { username, message, createdAt } = req.body;
+  console.log(req.body)
+  Models.postFootsteps(username, message, createdAt, (err, data) => {
+    if(err) {
+      res.status(400).send(data);
+    } else  {
+      res.status(200).send(data);
+    }
+  });
+}
+
 
 module.exports = {
   getSchedules,
   postSchedule,
   deleteSchedule,
-  putSchedule
+  putSchedule,
+  getFootsteps,
+  postFootsteps
 }
