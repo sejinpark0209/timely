@@ -12,13 +12,15 @@ class App extends React.Component {
     this.state = {
       schedules: [],
       scheduledIntervals: [],
-      view: 'option1'
+      view: 'option1',
+      hideForm: false
     }
     this.postSchedule = this.postSchedule.bind(this);
     this.postMultSchedule = this.postMultSchedule.bind(this);
     this.deleteSchedule = this.deleteSchedule.bind(this);
     this.deleteSchedule = this.deleteSchedule.bind(this);
     this.changeView = this.changeView.bind(this);
+    this.hideForm = this.hideForm.bind(this);
   }
 
   componentDidMount() {
@@ -187,10 +189,14 @@ class App extends React.Component {
     }
   }
 
+  hideForm() {
+    this.setState({ hideForm: !this.state.hideForm });
+  }
+
   render() {
     // updateschedule not functional. okay to delete
     const { postSchedule, deleteSchedule, postMultSchedule, updateSchedule } = this;
-    const { schedules, view } = this.state;
+    const { schedules, view, hideForm } = this.state;
 
     let form;
     if(view === 'option2') {
@@ -199,11 +205,18 @@ class App extends React.Component {
       form = <ScheduleFormTwo postSchedule={postSchedule} />;
     }
 
+    if(hideForm) {
+      form = null;
+    }
+
     return (
       <div className="appContainer">
         <div className="topBar">
           <span className="appTitle">Timely</span>
-          <button className="changeOptionBtn" onClick={this.changeView} >Change Option</button>
+          <div className="topBarBtnContainer">
+            <button className="changeOptionBtn" onClick={this.changeView} >Change Option</button>
+            <button className="hideFormBtn" onClick={this.hideForm} >Hide Form</button>
+          </div>
         </div>
         <div className="formContainer">{form}</div>
         <div className="listContainer"><ScheduleList schedules={schedules} deleteSchedule={deleteSchedule} updateSchedule={updateSchedule} /></div>
