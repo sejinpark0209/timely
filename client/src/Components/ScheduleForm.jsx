@@ -190,20 +190,27 @@ class ScheduleForm extends React.Component {
     return (
       <div>
         <form onSubmit={this.onSubmitHandler}>
+          <div className="form2firstRow">
             <label>
-              Description:
-              <input type="text" name="description" value={this.state.description} onChange={this.updateDescription} />
+              Description
+              <input className="des2Input" type="text" name="description" value={this.state.description} onChange={this.updateDescription} />
+            </label>
+          </div>
+          <div className="form2secondRow">
+            <label>
+              Date(From Until) & Time
+              <input className="dateFromInput" type="date" name="datefrom" value={this.state.datefrom} onChange={this.updateDateFrom} />
             </label>
             <label>
-              <input type="date" name="datefrom" value={this.state.datefrom} onChange={this.updateDateFrom} />
+              <input className="dateUntilInput" type="date" name="dateuntil" value={this.state.dateuntil} onChange={this.updateDateUntil} />
             </label>
             <label>
-              <input type="date" name="dateuntil" value={this.state.dateuntil} onChange={this.updateDateUntil} />
+              <input className="time2Input" type="time" name="time" value={this.state.time} onChange={this.updateTime} />
             </label>
-            <label>
-              <input type="time" name="time" value={this.state.time} onChange={this.updateTime} />
-            </label>
-            <div>
+          </div>
+          <div className="form2thirdRow">
+            <span className="chooseDays">Choose Days</span>
+            <div className="dayBtnContainer">
               <button className={monClicked} onClick={this.updateMon} >MON</button>
               <button className={tueClicked} onClick={this.updateTue} >TUE</button>
               <button className={wedClicked} onClick={this.updateWed} >WED</button>
@@ -212,18 +219,23 @@ class ScheduleForm extends React.Component {
               <button className={satClicked} onClick={this.updateSat} >SAT</button>
               <button className={sunClicked} onClick={this.updateSun} >SUN</button>
             </div>
+          </div>
+          <div className="form2forthRow">
             <label>
-              Link:
-              <input type="text" name="link" value={this.state.url} onChange={this.updateUrl} />
-            </label>
-            <label>
-              join earlier:
-              <input type="number" name="earlymin" step="1" min="1" max="10" value={this.state.earlymin} onInput={this.updateMinbefore} />
+              Join Earlier
+              <input className="min2InputBox" type="number" name="earlymin" step="1" min="1" max="10" value={this.state.earlymin} onInput={this.updateMinbefore} />
               min
-              <input type="number" name="earlysec" step="1" min="1" max="60"value={this.state.earlysec} onChange={this.updateSecbefore} />
+              <input className="sec2InputBox" type="number" name="earlysec" step="1" min="1" max="60"value={this.state.earlysec} onChange={this.updateSecbefore} />
               sec
             </label>
-          <input type="submit" value="Add" />
+          </div>
+          <div className="form2fifthRow">
+            <label>
+              Link
+              <input className="link2InputBox" type="text" name="link" value={this.state.url} onChange={this.updateUrl} />
+            </label>
+            <input className="input2AddBtn" type="submit" value="Add" />
+          </div>
         </form>
       </div>
     )
