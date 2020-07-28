@@ -2,6 +2,7 @@ const Models = require('./Models.js');
 
 function getSchedules(req, res) {
   const userId = req.params.userid;
+
   Models.getSchedules(userId, (err, data) => {
     if(err) {
       res.status(400).send(data);
@@ -14,6 +15,7 @@ function getSchedules(req, res) {
 function postSchedule(req, res) {
   const userId = req.params.userid;
   const { description, formatTimeStr, url, minbefore, secbefore } = req.body;
+
   Models.postSchedule(userId, description, formatTimeStr, url, minbefore, secbefore, (err, data) => {
     if(err) {
       res.status(400).send(data);
@@ -39,6 +41,7 @@ function putSchedule(req, res) {
 function deleteSchedule(req, res) {
   const userId = req.params.userid;
   const scheduleId = req.params.scheduleid;
+
   Models.deleteSchedule(userId, scheduleId, (err, data) => {
     if(err) {
       res.status(400).send(data);

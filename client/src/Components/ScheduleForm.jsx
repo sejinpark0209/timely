@@ -130,7 +130,7 @@ class ScheduleForm extends React.Component {
 
   onSubmitHandler(e) {
     e.preventDefault();
-    const { description, datefrom, dateuntil, time, url, day } = this.state;
+    const { description, datefrom, dateuntil, time, url, day, minbefore, secbefore } = this.state;
 
     const startDateFormat = datefrom.toString().split('-');
     const endDateFormat = dateuntil.toString().split('-');
@@ -156,32 +156,28 @@ class ScheduleForm extends React.Component {
       var lastDay = moment(new Date(endyy, endmm, enddd, endhh, endmin, 0));
       console.log('i for loop: ', i)
       var idx = 0;
+      var startIdx = 0;
       for(let j = 0; j < dayArrIndex.length; j++) {
         if(dayArrIndex[j] === day[i]) {
           console.log('true?')
           idx = j;
+          startIdx = j;
         }
       }
       while(lastDay.diff(firstDay) > 0) {
-        console.log("idx: ", idx)
-        firstDay = firstDay.day(idx);
+        var firstDay = moment(new Date(startyy, startmm, startdd, starthh, startmin, 0)).day(startIdx);
+
         if(lastDay.diff(firstDay) < 0) {
           break;
         }
-        console.log(firstDay.format('lll'))
         possibleSchedules.push(firstDay.format('lll'));
         idx += 7;
       }
       idx = 0;
     }
-    console.log("possible scheduled: ", possibleSchedules);
-    const formatTimeStr = formatTime.toString();
 
-    // const newSchedule = { description, formatTimeStr, url }
-
-    console.log('click days: ', day)
-    this.props.postSchedule(newSchedule);
-    // this.setState({description: '', url: ''});
+    this.props.postMultSchedule(possibleSchedules, description, url, minbefore, secbefore)
+    this.setState({description: '', url: ''});
   }
 
   render() {
