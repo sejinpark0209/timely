@@ -130,14 +130,57 @@ class ScheduleForm extends React.Component {
 
   onSubmitHandler(e) {
     e.preventDefault();
-    const { description, date, time, url, day } = this.state;
-    const formatTime = moment(date).format('lll');
+    const { description, datefrom, dateuntil, time, url, day } = this.state;
 
+    const startDateFormat = datefrom.toString().split('-');
+    const endDateFormat = dateuntil.toString().split('-');
+    const timeFormat = time.toString().split(':');
+
+    const startyy = Number(startDateFormat[0]);
+    const startmm = Number(startDateFormat[1]) - 1;
+    const startdd = Number(startDateFormat[2]);
+    const starthh = Number(timeFormat[0]);
+    const startmin = Number(timeFormat[1]);
+    const endyy = Number(endDateFormat[0]);
+    const endmm = Number(endDateFormat[1]) - 1;
+    const enddd = Number(endDateFormat[2]);
+    const endhh = Number(timeFormat[0]);
+    const endmin = Number(timeFormat[1]);
+
+    const possibleSchedules = [];
+    const dayArrIndex = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+
+    // if day.length > 0
+    for(let i = 0; i < day.length; i += 1) {
+      var firstDay = moment(new Date(startyy, startmm, startdd, starthh, startmin, 0));
+      var lastDay = moment(new Date(endyy, endmm, enddd, endhh, endmin, 0));
+      console.log('i for loop: ', i)
+      var idx = 0;
+      for(let j = 0; j < dayArrIndex.length; j++) {
+        if(dayArrIndex[j] === day[i]) {
+          console.log('true?')
+          idx = j;
+        }
+      }
+      while(lastDay.diff(firstDay) > 0) {
+        console.log("idx: ", idx)
+        firstDay = firstDay.day(idx);
+        if(lastDay.diff(firstDay) < 0) {
+          break;
+        }
+        console.log(firstDay.format('lll'))
+        possibleSchedules.push(firstDay.format('lll'));
+        idx += 7;
+      }
+      idx = 0;
+    }
+    console.log("possible scheduled: ", possibleSchedules);
     const formatTimeStr = formatTime.toString();
 
-    const newSchedule = { description, formatTimeStr, url }
+    // const newSchedule = { description, formatTimeStr, url }
+
     console.log('click days: ', day)
-    // this.props.postSchedule(newSchedule);
+    this.props.postSchedule(newSchedule);
     // this.setState({description: '', url: ''});
   }
 
