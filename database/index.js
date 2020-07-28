@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 
 // const db = mongoose.connect(mongoUri, { useNewUrlParser: true });
 
-const mongoUri = 'mongodb://localhost:27017/joinontime';
+const mongoUri = 'mongodb://localhost:27017/timely';
 
 const db = mongoose.connect(process.env_MONGODB_URI || mongoUri, { useNewUrlParser: true });
 

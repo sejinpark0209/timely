@@ -4,13 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server/index.js",
+    "start": "node server/index.js",
+    "nodemon": "nodemon server/index.js",
     "webpack": "webpack -d --watch",
     "webpack-p": "webpack --mode production",
     "seed": "node database/seed.js",
-    "build": "webpack",
-    "install-npm": "npm install",
-    "heroku-postbuild": "npm run install-npm && npm run build"
+    "heroku-postbuild": "npm install && npm run webpack-p"
   },
   "repository": {
     "type": "git",
